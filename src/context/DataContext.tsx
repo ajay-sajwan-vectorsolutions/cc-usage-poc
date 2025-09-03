@@ -135,6 +135,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           url = '/cc-usage-poc/sample-sessions.json';
         } else if (endpoint === '/projects') {
           url = '/cc-usage-poc/sample-projects.json';
+        } else if (endpoint === '/weekly') {
+          url = '/cc-usage-poc/sample-weekly.json';
+        } else if (endpoint === '/monthly') {
+          url = '/cc-usage-poc/sample-monthly.json';
         } else {
           return null;
         }
@@ -274,10 +278,12 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       if (isGitHubPages) {
         // For GitHub Pages, fetch and transform the static JSON data
-        const [sessionDataRaw, blocksDataRaw, projectDataRaw] = await Promise.all([
+        const [sessionDataRaw, blocksDataRaw, projectDataRaw, weeklyDataRaw, monthlyDataRaw] = await Promise.all([
           fetchData('/session'),
           fetchData('/blocks'),
-          fetchData('/projects')
+          fetchData('/projects'),
+          fetchData('/weekly'),
+          fetchData('/monthly')
         ]);
 
         if (sessionDataRaw) {
@@ -312,6 +318,14 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
             };
           });
           dispatch({ type: 'SET_PROJECT_DATA', payload: projectData });
+        }
+
+        if (weeklyDataRaw && weeklyDataRaw.weekly) {
+          dispatch({ type: 'SET_WEEKLY_DATA', payload: weeklyDataRaw.weekly });
+        }
+
+        if (monthlyDataRaw && monthlyDataRaw.monthly) {
+          dispatch({ type: 'SET_MONTHLY_DATA', payload: monthlyDataRaw.monthly });
         }
       } else {
         // Original API fetching for local development
