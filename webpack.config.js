@@ -11,7 +11,7 @@ module.exports = (env, argv) => {
       filename: isDevelopment ? '[name].bundle.js' : '[name].[contenthash].bundle.js',
       chunkFilename: isDevelopment ? '[name].chunk.js' : '[name].[contenthash].chunk.js',
       clean: true,
-      publicPath: isDevelopment ? '/' : '/cc-usage-poc/'
+      publicPath: '/'
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],

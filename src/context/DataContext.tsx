@@ -130,15 +130,15 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (isGitHubPages) {
         // Map API endpoints to static JSON files for GitHub Pages
         if (endpoint === '/blocks') {
-          url = '/cc-usage-poc/sample-blocks.json';
+          url = '/sample-blocks.json';
         } else if (endpoint === '/session') {
-          url = '/cc-usage-poc/sample-sessions.json';
+          url = '/sample-sessions.json';
         } else if (endpoint === '/projects') {
-          url = '/cc-usage-poc/sample-projects.json';
+          url = '/sample-projects.json';
         } else if (endpoint === '/weekly') {
-          url = '/cc-usage-poc/sample-weekly.json';
+          url = '/sample-weekly.json';
         } else if (endpoint === '/monthly') {
-          url = '/cc-usage-poc/sample-monthly.json';
+          url = '/sample-monthly.json';
         } else {
           return null;
         }
@@ -467,7 +467,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Recalculate metrics for filtered data
     const filteredSessions = project === 'all' 
       ? state.sessions 
-      : state.sessions.filter(s => s.vscodeData?.projectName === project);
+      : state.sessions.filter(s => s.projectName === project);
     
     const dashboardMetrics = calculateDashboardMetrics(filteredSessions);
     const platformMetrics = calculatePlatformMetrics(filteredSessions);
