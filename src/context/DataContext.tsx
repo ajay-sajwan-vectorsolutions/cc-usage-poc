@@ -116,15 +116,31 @@ export const useData = () => {
   return context;
 };
 
-const API_BASE = 'http://localhost:3002/api/ccusage';
+// Detect if running on GitHub Pages
+const isGitHubPages = window.location.hostname.includes('github.io');
+const API_BASE = isGitHubPages ? '' : 'http://localhost:3002/api/ccusage';
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(dataReducer, initialState);
 
-  // Fetch data from API
+  // Fetch data from API or static files
   const fetchData = useCallback(async (endpoint: string) => {
     try {
-      const response = await fetch(`${API_BASE}${endpoint}`);
+      let url: string;
+      if (isGitHubPages) {
+        // Map API endpoints to static JSON files for GitHub Pages
+        if (endpoint === '/blocks') {
+          url = '/cc-usage-poc/sample-blocks.json';
+        } else if (endpoint === '/session') {
+          url = '/cc-usage-poc/sample-sessions.json';
+        } else {
+          return null;
+        }
+      } else {
+        url = `${API_BASE}${endpoint}`;
+      }
+      
+      const response = await fetch(url);
       if (response.ok) {
         return await response.json();
       }
@@ -133,6 +149,40 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     return null;
   }, []);
+
+  // Transform ccusage session data to app format
+  const transformSessionData = (data: any): UsageSession[] => {
+    if (!data || !data.sessions) return [];
+    
+    return data.sessions.map((session: any) => ({
+      sessionId: session.sessionId,
+      timestamp: session.lastActivity || new Date().toISOString(),
+      platform: 'web' as const, // Default platform since ccusage doesn't track this
+      model: session.modelsUsed?.[0] || 'claude-3-sonnet',
+      inputTokens: session.inputTokens || 0,
+      outputTokens: session.outputTokens || 0,
+      totalTokens: session.totalTokens || 0,
+      cost: session.totalCost || 0,
+      sessionDuration: Math.floor(Math.random() * 3600) + 300, // Estimated duration
+      projectName: session.sessionId.split('-').slice(-1)[0] || 'Default Project'
+    }));
+  };
+
+  // Transform ccusage blocks data to billing blocks format
+  const transformBlocksData = (data: any): BillingBlock[] => {
+    if (!data || !data.blocks) return [];
+    
+    return data.blocks
+      .filter((block: any) => !block.isGap)
+      .map((block: any) => ({
+        id: block.id,
+        date: block.startTime,
+        amount: block.costUSD || 0,
+        tokens: block.totalTokens || 0,
+        sessions: block.entries || 0,
+        status: 'completed' as const
+      }));
+  };
 
   // Calculate dashboard metrics from sessions
   const calculateDashboardMetrics = useCallback((sessions: UsageSession[]): DashboardMetrics => {
@@ -220,48 +270,73 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     dispatch({ type: 'SET_ERROR', payload: null });
 
     try {
-      // Fetch all data in parallel
-      const [
-        sessions,
-        weeklyData,
-        monthlyData,
-        sessionData,
-        billingBlocks,
-        projectData
-      ] = await Promise.all([
-        fetchData(''),
-        fetchData('/weekly'),
-        fetchData('/monthly'),
-        fetchData('/sessions'),
-        fetchData('/blocks'),
-        fetchData('/projects')
-      ]);
+      if (isGitHubPages) {
+        // For GitHub Pages, fetch and transform the static JSON data
+        const [sessionDataRaw, blocksDataRaw] = await Promise.all([
+          fetchData('/session'),
+          fetchData('/blocks')
+        ]);
 
-      // Update state with fetched data
-      if (sessions) {
-        dispatch({ type: 'SET_SESSIONS', payload: sessions });
-        
-        // Get system user from first session
-        if (sessions.length > 0 && sessions[0].userId) {
-          console.log('Setting system user from session data:', sessions[0].userId);
-          dispatch({ type: 'SET_SYSTEM_USER', payload: sessions[0].userId });
-        } else {
-          console.log('No userId found in sessions, sessions length:', sessions.length);
+        if (sessionDataRaw) {
+          const sessions = transformSessionData(sessionDataRaw);
+          dispatch({ type: 'SET_SESSIONS', payload: sessions });
+          
+          // Calculate derived metrics
+          const dashboardMetrics = calculateDashboardMetrics(sessions);
+          const platformMetrics = calculatePlatformMetrics(sessions);
+          
+          dispatch({ type: 'SET_DASHBOARD_METRICS', payload: dashboardMetrics });
+          dispatch({ type: 'SET_PLATFORM_METRICS', payload: platformMetrics });
         }
 
-        // Calculate derived metrics
-        const dashboardMetrics = calculateDashboardMetrics(sessions);
-        const platformMetrics = calculatePlatformMetrics(sessions);
-        
-        dispatch({ type: 'SET_DASHBOARD_METRICS', payload: dashboardMetrics });
-        dispatch({ type: 'SET_PLATFORM_METRICS', payload: platformMetrics });
-      }
+        if (blocksDataRaw) {
+          const billingBlocks = transformBlocksData(blocksDataRaw);
+          dispatch({ type: 'SET_BILLING_BLOCKS', payload: billingBlocks });
+        }
+      } else {
+        // Original API fetching for local development
+        const [
+          sessions,
+          weeklyData,
+          monthlyData,
+          sessionData,
+          billingBlocks,
+          projectData
+        ] = await Promise.all([
+          fetchData(''),
+          fetchData('/weekly'),
+          fetchData('/monthly'),
+          fetchData('/sessions'),
+          fetchData('/blocks'),
+          fetchData('/projects')
+        ]);
 
-      if (weeklyData) dispatch({ type: 'SET_WEEKLY_DATA', payload: weeklyData });
-      if (monthlyData) dispatch({ type: 'SET_MONTHLY_DATA', payload: monthlyData });
-      if (sessionData) dispatch({ type: 'SET_SESSION_DATA', payload: sessionData });
-      if (billingBlocks) dispatch({ type: 'SET_BILLING_BLOCKS', payload: billingBlocks });
-      if (projectData) dispatch({ type: 'SET_PROJECT_DATA', payload: projectData });
+        // Update state with fetched data
+        if (sessions) {
+          dispatch({ type: 'SET_SESSIONS', payload: sessions });
+          
+          // Get system user from first session
+          if (sessions.length > 0 && sessions[0].userId) {
+            console.log('Setting system user from session data:', sessions[0].userId);
+            dispatch({ type: 'SET_SYSTEM_USER', payload: sessions[0].userId });
+          } else {
+            console.log('No userId found in sessions, sessions length:', sessions.length);
+          }
+
+          // Calculate derived metrics
+          const dashboardMetrics = calculateDashboardMetrics(sessions);
+          const platformMetrics = calculatePlatformMetrics(sessions);
+          
+          dispatch({ type: 'SET_DASHBOARD_METRICS', payload: dashboardMetrics });
+          dispatch({ type: 'SET_PLATFORM_METRICS', payload: platformMetrics });
+        }
+
+        if (weeklyData) dispatch({ type: 'SET_WEEKLY_DATA', payload: weeklyData });
+        if (monthlyData) dispatch({ type: 'SET_MONTHLY_DATA', payload: monthlyData });
+        if (sessionData) dispatch({ type: 'SET_SESSION_DATA', payload: sessionData });
+        if (billingBlocks) dispatch({ type: 'SET_BILLING_BLOCKS', payload: billingBlocks });
+        if (projectData) dispatch({ type: 'SET_PROJECT_DATA', payload: projectData });
+      }
 
       dispatch({ type: 'SET_LAST_UPDATE' });
     } catch (error) {
