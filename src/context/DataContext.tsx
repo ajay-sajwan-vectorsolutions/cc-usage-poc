@@ -394,7 +394,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Helper functions
   const getFilteredSessions = useCallback((): UsageSession[] => {
     if (state.selectedProject === 'all') return state.sessions;
-    return state.sessions.filter(s => s.vscodeData?.projectName === state.selectedProject);
+    return state.sessions.filter(s => s.projectName === state.selectedProject);
   }, [state.sessions, state.selectedProject]);
 
   const getTodayData = useCallback(() => {

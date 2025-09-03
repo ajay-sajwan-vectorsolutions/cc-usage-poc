@@ -29,6 +29,72 @@ import { useData } from "../context/DataContext";
 export const Dashboard: React.FC = () => {
   const { state, actions } = useData();
   
+  // Get filtered sessions based on selected project
+  const filteredSessions = actions.getFilteredSessions();
+  
+  // Calculate dashboard metrics for filtered sessions
+  const calculateFilteredMetrics = () => {
+    if (filteredSessions.length === 0) {
+      return {
+        totalSessions: 0,
+        totalTokens: 0,
+        totalCost: 0,
+        averageSessionDuration: 0,
+        mostUsedPlatform: 'web' as const,
+        todayUsage: { sessions: 0, tokens: 0, cost: 0 },
+        weeklyUsage: { sessions: 0, tokens: 0, cost: 0 },
+        monthlyUsage: { sessions: 0, tokens: 0, cost: 0 }
+      };
+    }
+
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekAgo = new Date(today);
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    const monthAgo = new Date(today);
+    monthAgo.setDate(monthAgo.getDate() - 30);
+
+    const todaySessions = filteredSessions.filter(s => new Date(s.timestamp) >= today);
+    const weeklySessions = filteredSessions.filter(s => new Date(s.timestamp) >= weekAgo);
+    const monthlySessions = filteredSessions.filter(s => new Date(s.timestamp) >= monthAgo);
+
+    const platformCounts = filteredSessions.reduce((acc, session) => {
+      acc[session.platform] = (acc[session.platform] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const mostUsedPlatform = Object.entries(platformCounts)
+      .sort(([,a], [,b]) => b - a)[0]?.[0] as 'vscode' | 'web' | 'api' || 'web';
+
+    return {
+      totalSessions: filteredSessions.length,
+      totalTokens: filteredSessions.reduce((sum, s) => sum + s.totalTokens, 0),
+      totalCost: filteredSessions.reduce((sum, s) => sum + s.cost, 0),
+      averageSessionDuration: filteredSessions.reduce((sum, s) => sum + s.sessionDuration, 0) / filteredSessions.length,
+      mostUsedPlatform,
+      todayUsage: {
+        sessions: todaySessions.length,
+        tokens: todaySessions.reduce((sum, s) => sum + s.totalTokens, 0),
+        cost: todaySessions.reduce((sum, s) => sum + s.cost, 0)
+      },
+      weeklyUsage: {
+        sessions: weeklySessions.length,
+        tokens: weeklySessions.reduce((sum, s) => sum + s.totalTokens, 0),
+        cost: weeklySessions.reduce((sum, s) => sum + s.cost, 0)
+      },
+      monthlyUsage: {
+        sessions: monthlySessions.length,
+        tokens: monthlySessions.reduce((sum, s) => sum + s.totalTokens, 0),
+        cost: monthlySessions.reduce((sum, s) => sum + s.cost, 0)
+      }
+    };
+  };
+
+  // Get the appropriate metrics (filtered if project is selected)
+  const metrics = state.selectedProject === 'all' && state.dashboardMetrics 
+    ? state.dashboardMetrics 
+    : calculateFilteredMetrics();
+  
   // Get project metrics from project data
   const projectMetrics = Object.entries(state.projectData).map(([name, data]) => ({
     name,
@@ -90,9 +156,6 @@ export const Dashboard: React.FC = () => {
       </Typography>
     );
   }
-
-  // Safe reference since we've checked for null above
-  const metrics = state.dashboardMetrics;
 
   const formatCurrency = (amount: number) => `$${amount.toFixed(2)}`;
   const formatNumber = (num: number) => num.toLocaleString();

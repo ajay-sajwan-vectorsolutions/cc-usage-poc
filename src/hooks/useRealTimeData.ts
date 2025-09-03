@@ -139,7 +139,7 @@ export const useRealTimeData = (refreshInterval: number = 5000) => {
       
       const filteredSessions = selectedProject === 'all' 
         ? apiSessions 
-        : apiSessions.filter(s => s.vscodeData?.projectName === selectedProject);
+        : apiSessions.filter(s => s.projectName === selectedProject);
       
       const metrics = calculateDashboardMetrics(filteredSessions);
       console.log('📈 Calculated metrics:', metrics);
@@ -284,7 +284,7 @@ export const useRealTimeData = (refreshInterval: number = 5000) => {
 
   const getFilteredSessions = useCallback((): UsageSession[] => {
     if (selectedProject === 'all') return sessions;
-    return sessions.filter(s => s.vscodeData?.projectName === selectedProject);
+    return sessions.filter(s => s.projectName === selectedProject);
   }, [sessions, selectedProject]);
 
   return {
