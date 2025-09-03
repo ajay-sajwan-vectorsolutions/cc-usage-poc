@@ -170,7 +170,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
       totalTokens: session.totalTokens || 0,
       cost: session.totalCost || 0,
       sessionDuration: Math.floor(Math.random() * 3600) + 300, // Estimated duration
-      projectName: session.sessionId.split('-').slice(-1)[0] || 'Default Project'
+      projectName: session.sessionId.split('-').slice(4).join('-') || 'Default Project'
     }));
   };
 
