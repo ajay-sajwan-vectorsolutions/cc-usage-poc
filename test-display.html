@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Display Test</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: white;
+            padding: 16px 24px;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .user-name {
+            font-weight: 600;
+            color: #1E293B;
+            font-size: 15px;
+        }
+        .user-email {
+            color: #64748B;
+            font-size: 12px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: #6366F1;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E293B;
+        }
+        .license-badge {
+            background: #6366F1;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <h2>Testing User Display Layout</h2>
+    
+    <div class="header">
+        <div class="logo-section">
+            <span class="logo">CLAUDE</span>
+            <span class="license-badge">PRO</span>
+        </div>
+        
+        <div class="profile-section">
+            <span class="user-name">Ajay</span>
+            <div style="text-align: right;">
+                <div class="user-email">ajay.sajwan-ctr@vectorsolutions.com</div>
+            </div>
+            <div class="avatar">AS</div>
+        </div>
+    </div>
+    
+    <h3 style="margin-top: 30px;">Component Breakdown:</h3>
+    <ul>
+        <li><strong>Logo:</strong> "CLAUDE" with "PRO" badge</li>
+        <li><strong>User First Name:</strong> "Ajay" (always visible)</li>
+        <li><strong>Email:</strong> ajay.sajwan-ctr@vectorsolutions.com</li>
+        <li><strong>Avatar:</strong> Circle with initials "AS"</li>
+    </ul>
+    
+    <h3>Current React Implementation:</h3>
+    <pre style="background: white; padding: 15px; border-radius: 4px;">
+// Variables defined:
+const userName = 'Ajay Sajwan';
+const userFirstName = 'Ajay';  // Extracted from userName
+const userInitials = 'AS';     // Generated from userName
+const userEmail = 'ajay.sajwan-ctr@vectorsolutions.com';
+
+// Display structure:
+&lt;Box&gt;
+  &lt;Typography&gt;{userFirstName}&lt;/Typography&gt;  // "Ajay" - Always visible
+  &lt;Box&gt;{userEmail}&lt;/Box&gt;                    // Email - Hidden on small screens
+  &lt;Avatar&gt;{userInitials}&lt;/Avatar&gt;           // "AS" in avatar
+&lt;/Box&gt;
+    </pre>
+</body>
+</html>
