@@ -261,23 +261,23 @@ export const useRealTimeData = (refreshInterval: number = 5000) => {
   const getProjectMetrics = useCallback((): ProjectMetrics[] => {
     if (Object.keys(projectData).length === 0) return [];
     
-    const totalSessions = Object.values(projectData).reduce((sum, project) => sum + project.sessionCount, 0);
+    const totalSessions = Object.values(projectData).reduce((sum, project) => sum + project.totalSessions, 0);
     
     return Object.entries(projectData).map(([name, data]) => {
-      const projectSessions = sessions.filter(s => s.vscodeData?.projectName === name);
+      const projectSessions = sessions.filter(s => s.projectName === name);
       const lastActivity = projectSessions.length > 0 
         ? Math.max(...projectSessions.map(s => new Date(s.timestamp).getTime()))
-        : 0;
+        : new Date(data.lastActive).getTime();
       
       return {
         name,
-        path: data.path,
-        sessions: data.sessionCount,
+        path: name, // Use name as path since ccusage doesn't provide file paths
+        sessions: data.totalSessions,
         totalTokens: data.totalTokens,
         totalCost: data.totalCost,
         averageSessionDuration: projectSessions.reduce((sum, s) => sum + s.sessionDuration, 0) / Math.max(projectSessions.length, 1),
-        percentageOfTotal: totalSessions > 0 ? (data.sessionCount / totalSessions) * 100 : 0,
-        lastActivityDate: lastActivity > 0 ? new Date(lastActivity).toISOString() : new Date().toISOString()
+        percentageOfTotal: totalSessions > 0 ? (data.totalSessions / totalSessions) * 100 : 0,
+        lastActivityDate: lastActivity > 0 ? new Date(lastActivity).toISOString() : data.lastActive
       };
     }).sort((a, b) => b.totalTokens - a.totalTokens);
   }, [projectData, sessions]);

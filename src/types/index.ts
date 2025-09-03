@@ -1,15 +1,15 @@
 export interface UsageSession {
-  id: string;
+  sessionId: string;
   timestamp: string;
   platform: 'vscode' | 'web' | 'api';
-  userId: string; // Email/username for the user
+  model: string;
   
   inputTokens: number;
   outputTokens: number;
   totalTokens: number;
   cost: number;
-  model: 'claude-3-opus' | 'claude-3-sonnet' | 'claude-3-haiku' | 'claude-2' | 'claude-instant';
   sessionDuration: number;
+  projectName: string;
   
   vscodeData?: VSCodeData;
   webData?: WebData;
@@ -86,11 +86,13 @@ export interface CostBreakdown {
 }
 
 export interface ProjectData {
-  path: string;
-  sessions: any[];
+  name: string;
+  totalSessions: number;
   totalTokens: number;
   totalCost: number;
-  sessionCount: number;
+  lastActive: string;
+  models: string[];
+  platforms: Array<'web' | 'vscode' | 'api'>;
 }
 
 export interface ProjectMetrics {

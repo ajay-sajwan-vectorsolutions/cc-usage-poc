@@ -133,6 +133,8 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           url = '/cc-usage-poc/sample-blocks.json';
         } else if (endpoint === '/session') {
           url = '/cc-usage-poc/sample-sessions.json';
+        } else if (endpoint === '/projects') {
+          url = '/cc-usage-poc/sample-projects.json';
         } else {
           return null;
         }
@@ -272,9 +274,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       if (isGitHubPages) {
         // For GitHub Pages, fetch and transform the static JSON data
-        const [sessionDataRaw, blocksDataRaw] = await Promise.all([
+        const [sessionDataRaw, blocksDataRaw, projectDataRaw] = await Promise.all([
           fetchData('/session'),
-          fetchData('/blocks')
+          fetchData('/blocks'),
+          fetchData('/projects')
         ]);
 
         if (sessionDataRaw) {
@@ -292,6 +295,23 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (blocksDataRaw) {
           const billingBlocks = transformBlocksData(blocksDataRaw);
           dispatch({ type: 'SET_BILLING_BLOCKS', payload: billingBlocks });
+        }
+
+        if (projectDataRaw && projectDataRaw.projects) {
+          // Transform project data to match expected format
+          const projectData: Record<string, ProjectData> = {};
+          projectDataRaw.projects.forEach((project: any) => {
+            projectData[project.name] = {
+              name: project.name,
+              totalSessions: project.totalSessions,
+              totalTokens: project.totalTokens,
+              totalCost: project.totalCost,
+              lastActive: project.lastActive,
+              models: project.models,
+              platforms: project.platforms
+            };
+          });
+          dispatch({ type: 'SET_PROJECT_DATA', payload: projectData });
         }
       } else {
         // Original API fetching for local development

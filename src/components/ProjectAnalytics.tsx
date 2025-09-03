@@ -55,13 +55,13 @@ export const ProjectAnalytics: React.FC = () => {
   // Get project metrics from project data
   const projectMetrics = Object.entries(state.projectData).map(([name, data]) => ({
     name,
-    path: data.path,
-    sessions: data.sessionCount,
+    path: name, // Use name as path since ccusage doesn't provide file paths
+    sessions: data.totalSessions,
     totalTokens: data.totalTokens,
     totalCost: data.totalCost,
-    percentageOfTotal: state.sessions.length > 0 ? (data.sessionCount / state.sessions.length) * 100 : 0,
-    averageSessionDuration: data.sessionCount > 0 ? data.totalTokens / data.sessionCount / 1000 : 0,
-    lastActivityDate: new Date().toISOString()
+    percentageOfTotal: state.sessions.length > 0 ? (data.totalSessions / state.sessions.length) * 100 : 0,
+    averageSessionDuration: data.totalSessions > 0 ? data.totalTokens / data.totalSessions / 1000 : 0,
+    lastActivityDate: data.lastActive
   }));
   
   if (projectMetrics.length === 0) {

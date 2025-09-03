@@ -1,0 +1,9 @@
+file:///C:/Users/asajwan.DESKTOP-TN8HNF1/AppData/Roaming/npm/node_modules/ccusage/dist/index.js:998
+	if (!command) throw new Error(`Command not found: ${name$1 || ""}`);
+	                    ^
+
+Error: Command not found: costs
+    at cli (file:///C:/Users/asajwan.DESKTOP-TN8HNF1/AppData/Roaming/npm/node_modules/ccusage/dist/index.js:998:22)
+    at async file:///C:/Users/asajwan.DESKTOP-TN8HNF1/AppData/Roaming/npm/node_modules/ccusage/dist/index.js:5110:1
+
+Node.js v20.18.3
