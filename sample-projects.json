@@ -1,0 +1,384 @@
+{
+  "projects": [
+    {
+      "name": "Study-Connector",
+      "totalSessions": 1,
+      "totalTokens": 65755067,
+      "totalCost": 53.80881449999996,
+      "inputTokens": 2583,
+      "outputTokens": 106514,
+      "cacheCreationTokens": 3564238,
+      "cacheReadTokens": 62081732,
+      "lastActive": "2025-08-06",
+      "models": [
+        "claude-opus-4-20250514",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 53.80881449999996,
+      "averageTokensPerSession": 65755067
+    },
+    {
+      "name": "Study-Github-Test-Single-Repo",
+      "totalSessions": 1,
+      "totalTokens": 44207083,
+      "totalCost": 49.71330224999997,
+      "inputTokens": 1757,
+      "outputTokens": 96368,
+      "cacheCreationTokens": 2878889,
+      "cacheReadTokens": 41230069,
+      "lastActive": "2025-08-07",
+      "models": [
+        "claude-opus-4-1-20250805",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 49.71330224999997,
+      "averageTokensPerSession": 44207083
+    },
+    {
+      "name": "lti",
+      "totalSessions": 1,
+      "totalTokens": 34814684,
+      "totalCost": 38.58366689999999,
+      "inputTokens": 1575,
+      "outputTokens": 79645,
+      "cacheCreationTokens": 2196298,
+      "cacheReadTokens": 32537166,
+      "lastActive": "2025-08-26",
+      "models": [
+        "claude-opus-4-1-20250805",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 38.58366689999999,
+      "averageTokensPerSession": 34814684
+    },
+    {
+      "name": "Study-Claude-Usage-App-V2",
+      "totalSessions": 1,
+      "totalTokens": 19574718,
+      "totalCost": 34.58143605000004,
+      "inputTokens": 1234,
+      "outputTokens": 44902,
+      "cacheCreationTokens": 1412053,
+      "cacheReadTokens": 18116529,
+      "lastActive": "2025-09-03",
+      "models": [
+        "claude-sonnet-4-20250514",
+        "claude-opus-4-1-20250805"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 34.58143605000004,
+      "averageTokensPerSession": 19574718
+    },
+    {
+      "name": "Study-1-0-Claude-Defect-Tracker",
+      "totalSessions": 1,
+      "totalTokens": 32594201,
+      "totalCost": 33.848182499999965,
+      "inputTokens": 1080,
+      "outputTokens": 125295,
+      "cacheCreationTokens": 2060350,
+      "cacheReadTokens": 30407476,
+      "lastActive": "2025-08-06",
+      "models": [
+        "claude-opus-4-1-20250805",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 33.848182499999965,
+      "averageTokensPerSession": 32594201
+    },
+    {
+      "name": "lti-react",
+      "totalSessions": 1,
+      "totalTokens": 14730631,
+      "totalCost": 21.456404099999997,
+      "inputTokens": 895,
+      "outputTokens": 14661,
+      "cacheCreationTokens": 1236524,
+      "cacheReadTokens": 13478551,
+      "lastActive": "2025-08-19",
+      "models": [
+        "claude-opus-4-1-20250805",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 21.456404099999997,
+      "averageTokensPerSession": 14730631
+    },
+    {
+      "name": "Study-Github-Test-with-mcp",
+      "totalSessions": 1,
+      "totalTokens": 9788295,
+      "totalCost": 15.199924800000003,
+      "inputTokens": 818,
+      "outputTokens": 25136,
+      "cacheCreationTokens": 839150,
+      "cacheReadTokens": 8923191,
+      "lastActive": "2025-08-08",
+      "models": [
+        "claude-sonnet-4-20250514",
+        "claude-opus-4-1-20250805"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 15.199924800000003,
+      "averageTokensPerSession": 9788295
+    },
+    {
+      "name": "Study-TargetSolutions-Icon-Search",
+      "totalSessions": 1,
+      "totalTokens": 7681619,
+      "totalCost": 9.693612449999994,
+      "inputTokens": 558,
+      "outputTokens": 28600,
+      "cacheCreationTokens": 474507,
+      "cacheReadTokens": 7177954,
+      "lastActive": "2025-08-08",
+      "models": [
+        "claude-opus-4-1-20250805",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 9.693612449999994,
+      "averageTokensPerSession": 7681619
+    },
+    {
+      "name": "Repo-eval-pd-spa-claude",
+      "totalSessions": 1,
+      "totalTokens": 4871650,
+      "totalCost": 8.48138925,
+      "inputTokens": 216,
+      "outputTokens": 11180,
+      "cacheCreationTokens": 451529,
+      "cacheReadTokens": 4408725,
+      "lastActive": "2025-09-03",
+      "models": [
+        "claude-opus-4-1-20250805",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 8.48138925,
+      "averageTokensPerSession": 4871650
+    },
+    {
+      "name": "Study-2-0-Claude-Defect-Tracker",
+      "totalSessions": 1,
+      "totalTokens": 12339521,
+      "totalCost": 6.612924600000001,
+      "inputTokens": 200,
+      "outputTokens": 25336,
+      "cacheCreationTokens": 735678,
+      "cacheReadTokens": 11578307,
+      "lastActive": "2025-08-06",
+      "models": [
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 6.612924600000001,
+      "averageTokensPerSession": 12339521
+    },
+    {
+      "name": "ts-react",
+      "totalSessions": 1,
+      "totalTokens": 2575822,
+      "totalCost": 6.51057765,
+      "inputTokens": 7407,
+      "outputTokens": 5251,
+      "cacheCreationTokens": 195069,
+      "cacheReadTokens": 2368095,
+      "lastActive": "2025-09-02",
+      "models": [
+        "claude-opus-4-1-20250805",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 6.51057765,
+      "averageTokensPerSession": 2575822
+    },
+    {
+      "name": "Study-Claude-Usage",
+      "totalSessions": 1,
+      "totalTokens": 5655354,
+      "totalCost": 4.5133893,
+      "inputTokens": 278,
+      "outputTokens": 41134,
+      "cacheCreationTokens": 196678,
+      "cacheReadTokens": 5417264,
+      "lastActive": "2025-08-07",
+      "models": [
+        "claude-opus-4-1-20250805",
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 4.5133893,
+      "averageTokensPerSession": 5655354
+    },
+    {
+      "name": "Study-TargetSolutions",
+      "totalSessions": 1,
+      "totalTokens": 1694141,
+      "totalCost": 3.8191989000000013,
+      "inputTokens": 122,
+      "outputTokens": 9039,
+      "cacheCreationTokens": 60278,
+      "cacheReadTokens": 1624702,
+      "lastActive": "2025-08-08",
+      "models": [
+        "claude-sonnet-4-20250514",
+        "claude-opus-4-1-20250805"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 3.8191989000000013,
+      "averageTokensPerSession": 1694141
+    },
+    {
+      "name": "Repo-eval-pd-spa",
+      "totalSessions": 1,
+      "totalTokens": 1549450,
+      "totalCost": 3.42983025,
+      "inputTokens": 109,
+      "outputTokens": 4821,
+      "cacheCreationTokens": 43469,
+      "cacheReadTokens": 1501051,
+      "lastActive": "2025-09-03",
+      "models": [
+        "claude-opus-4-1-20250805"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 3.42983025,
+      "averageTokensPerSession": 1549450
+    },
+    {
+      "name": "Study-test-figma-plugin",
+      "totalSessions": 1,
+      "totalTokens": 374123,
+      "totalCost": 2.45454675,
+      "inputTokens": 28,
+      "outputTokens": 12969,
+      "cacheCreationTokens": 54479,
+      "cacheReadTokens": 306647,
+      "lastActive": "2025-08-05",
+      "models": [
+        "claude-opus-4-1-20250805"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 2.45454675,
+      "averageTokensPerSession": 374123
+    },
+    {
+      "name": "test-01",
+      "totalSessions": 1,
+      "totalTokens": 407909,
+      "totalCost": 2.0559344999999998,
+      "inputTokens": 38,
+      "outputTokens": 3314,
+      "cacheCreationTokens": 69564,
+      "cacheReadTokens": 334993,
+      "lastActive": "2025-08-19",
+      "models": [
+        "claude-opus-4-1-20250805"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 2.0559344999999998,
+      "averageTokensPerSession": 407909
+    },
+    {
+      "name": "Study-3-0-Design-and-code-from-FigmaMake",
+      "totalSessions": 1,
+      "totalTokens": 3501209,
+      "totalCost": 1.713483149999999,
+      "inputTokens": 167,
+      "outputTokens": 18251,
+      "cacheCreationTokens": 114313,
+      "cacheReadTokens": 3368478,
+      "lastActive": "2025-08-06",
+      "models": [
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 1.713483149999999,
+      "averageTokensPerSession": 3501209
+    },
+    {
+      "name": "Study-Github-Test-with-mcp-github-dashboard",
+      "totalSessions": 1,
+      "totalTokens": 3521360,
+      "totalCost": 1.4198671500000002,
+      "inputTokens": 167,
+      "outputTokens": 11641,
+      "cacheCreationTokens": 55619,
+      "cacheReadTokens": 3453933,
+      "lastActive": "2025-08-07",
+      "models": [
+        "claude-sonnet-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 1.4198671500000002,
+      "averageTokensPerSession": 3521360
+    },
+    {
+      "name": "Study-Connector-v2",
+      "totalSessions": 1,
+      "totalTokens": 316606,
+      "totalCost": 1.4150700000000003,
+      "inputTokens": 62,
+      "outputTokens": 1294,
+      "cacheCreationTokens": 48940,
+      "cacheReadTokens": 266310,
+      "lastActive": "2025-08-05",
+      "models": [
+        "claude-opus-4-20250514"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "averageCostPerSession": 1.4150700000000003,
+      "averageTokensPerSession": 316606
+    }
+  ],
+  "summary": {
+    "totalProjects": 19,
+    "totalCost": 299.3115550499999,
+    "totalTokens": 265953443,
+    "mostExpensiveProject": "Study-Connector",
+    "mostActiveProject": "Study-Connector"
+  }
+}
